@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Quick.OpcNetApi" Version="2.1.108" />
+    <PackageReference Include="Quick.OpcNetApi.Com" Version="2.1.108" />
+  </ItemGroup>
+
 </Project>
