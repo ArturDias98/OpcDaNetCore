@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34003.232
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpcDaNetCore", "OpcDaNetCore\OpcDaNetCore.csproj", "{07283512-418D-4044-895E-23593AA9C80A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpcDaNetCore.Sample", "OpcDaNetCore.Sample\OpcDaNetCore.Sample.csproj", "{EABADA47-0E4F-447A-A8D5-D5CF8A96355B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{07283512-418D-4044-895E-23593AA9C80A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07283512-418D-4044-895E-23593AA9C80A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07283512-418D-4044-895E-23593AA9C80A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EABADA47-0E4F-447A-A8D5-D5CF8A96355B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EABADA47-0E4F-447A-A8D5-D5CF8A96355B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EABADA47-0E4F-447A-A8D5-D5CF8A96355B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EABADA47-0E4F-447A-A8D5-D5CF8A96355B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

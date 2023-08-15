@@ -14,4 +14,12 @@ public static class BrowseOpcDaServers
 
         return enumetare.Select(i => new OpcDaServer(i.Name, i.Url.HostName, i.Url.ToString()));
     }
+
+    public static Opc.Da.Server CreateServer(string url)
+    {
+        var opcFactory = new OpcCom.Factory();
+        var opcUrl = new Opc.URL(url);
+
+        return new Opc.Da.Server(opcFactory, opcUrl);
+    }
 }

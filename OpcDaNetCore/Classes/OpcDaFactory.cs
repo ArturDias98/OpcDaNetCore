@@ -26,14 +26,6 @@ public class OpcDaFactory
         ArgumentException.ThrowIfNullOrEmpty(_serverName, "You must specify the server name");
     }
 
-    private Server CreateServer(string url)
-    {
-        var opcFactory = new OpcCom.Factory();
-        var opcUrl = new Opc.URL(url);
-
-        return new Server(opcFactory, opcUrl);
-    }
-
     public OpcDaFactory WithServerName(string serverName)
     {
         ArgumentException.ThrowIfNullOrEmpty(serverName, "Invalid server name");
@@ -61,7 +53,7 @@ public class OpcDaFactory
 
         ArgumentNullException.ThrowIfNull(server, "Please verify that you have specified the correct server name");
 
-        return CreateServer(server.Url);
+        return BrowseOpcDaServers.CreateServer(server.Url);
     }
 
     public async Task<Server> BuildAsync(CancellationToken cancellationToken = default)
@@ -74,6 +66,6 @@ public class OpcDaFactory
 
         ArgumentNullException.ThrowIfNull(server, "Please verify that you have specified the correct server name");
 
-        return CreateServer(server.Url);
+        return BrowseOpcDaServers.CreateServer(server.Url);
     }
 }
