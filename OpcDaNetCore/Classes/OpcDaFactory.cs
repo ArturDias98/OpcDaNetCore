@@ -48,7 +48,7 @@ public class OpcDaFactory
             };
 
             var subscription = (Subscription)server.CreateSubscription(state);
-
+            
             var items = item.Items.Distinct().Select(i => new Item()
             {
                 ItemName = i,
