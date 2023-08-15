@@ -36,4 +36,10 @@ public class Group
     public string Name { get; set; }
     public int UpdateRate { get; set; }
     public IEnumerable<string> Items { get; set; } = Enumerable.Empty<string>();
+
+    internal void Default()
+    {
+        Name = "Group 1";
+        UpdateRate = 1000;
+    }
 }
