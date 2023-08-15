@@ -1,6 +1,7 @@
 ﻿using Opc.Da;
 using OpcDaNetCore.Models;
 using OpcDaNetCore.Utilities;
+using System.Reflection;
 
 namespace OpcDaNetCore.Classes;
 
@@ -49,7 +50,7 @@ public class OpcDaFactory
 
             var subscription = (Subscription)server.CreateSubscription(state);
 
-            var items = item.Items.Select(i => new Item()
+            var items = item.Items.Distinct().Select(i => new Item()
             {
                 ItemName = i,
                 ClientHandle = subscription.ClientHandle,
@@ -79,16 +80,17 @@ public class OpcDaFactory
         return this;
     }
 
-    public OpcDaFactory WithSubscription(SubscriptionModel model)
+    public OpcDaFactory WithSubscription(params SubscriptionModel[] subscriptions)
     {
-        ArgumentNullException.ThrowIfNull(model, "Invalid subscription");
-
-        if (_subscriptions.Any(i => i.Name == model.Name))
+        foreach (var subscription in subscriptions)
         {
-            throw new ArgumentException("Subscription with same name already exists");
-        }
+            if (_subscriptions.Any(i => i.Name == subscription.Name))
+            {
+                throw new ArgumentException("One subscription with same name already exists");
+            }
 
-        _subscriptions.Add(model);
+            _subscriptions.Add(subscription);
+        }
 
         return this;
     }
