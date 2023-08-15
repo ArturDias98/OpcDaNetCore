@@ -1,4 +1,5 @@
-﻿using OpcDaNetCore.Classes;
+﻿using Opc.Da;
+using OpcDaNetCore.Classes;
 using OpcDaNetCore.Models;
 
 var server = await new OpcDaFactory()
@@ -21,6 +22,28 @@ var server = await new OpcDaFactory()
     })
     .WithDataChangedCallback(PrintValues)
     .BuildAsync();
+
+string? node = null;
+var itemID = node is null ? new Opc.ItemIdentifier() : new Opc.ItemIdentifier(node);
+var filters = new BrowseFilters { BrowseFilter = browseFilter.all };
+var browseElements = server.Browse(itemID, filters, out _);
+
+foreach (var browseElement in browseElements)
+{
+    Console.WriteLine($"{browseElement.Name}; {browseElement.ItemName}; Is item: {browseElement.IsItem}");
+}
+
+Console.WriteLine("------");
+
+node = browseElements.FirstOrDefault()?.ItemName;
+browseElements = server.Browse(new Opc.ItemIdentifier(node), filters, out _);
+
+foreach (var browseElement in browseElements)
+{
+    Console.WriteLine($"{browseElement.Name}; {browseElement.ItemName}; Is item: {browseElement.IsItem}");
+}
+
+Console.WriteLine("------");
 
 Console.ReadKey();
 

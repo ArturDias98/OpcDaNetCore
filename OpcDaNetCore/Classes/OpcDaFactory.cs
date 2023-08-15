@@ -1,7 +1,6 @@
 ﻿using Opc.Da;
 using OpcDaNetCore.Models;
 using OpcDaNetCore.Utilities;
-using System.Reflection;
 
 namespace OpcDaNetCore.Classes;
 
@@ -109,7 +108,7 @@ public class OpcDaFactory
         var servers = BrowseOpcDaServers.BrowseServers(_ip);
         var server = servers.FirstOrDefault(i => i.ServerName == _serverName);
 
-        ArgumentNullException.ThrowIfNull(server, "Please verify that you have specified the correct server name");
+        ArgumentNullException.ThrowIfNull(server, "Server not found. Please verify that you have specified the correct server name");
 
         var create = BrowseOpcDaServers.CreateServerAndConnect(server.Url);
 
@@ -126,7 +125,7 @@ public class OpcDaFactory
 
         var server = servers.FirstOrDefault(i => i.ServerName == _serverName);
 
-        ArgumentNullException.ThrowIfNull(server, "Please verify that you have specified the correct server name");
+        ArgumentNullException.ThrowIfNull(server, "Server not found. Please verify that you have specified the correct server name");
 
         var create = BrowseOpcDaServers.CreateServerAndConnect(server.Url);
 

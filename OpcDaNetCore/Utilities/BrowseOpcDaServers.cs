@@ -26,7 +26,7 @@ public static class BrowseOpcDaServers
     public static Opc.Da.Server CreateServerAndConnect(string url)
     {
         var opcFactory = new OpcCom.Factory();
-        var opcUrl = new Opc.URL(url);
+        var opcUrl = new URL(url);
 
         var server = new Opc.Da.Server(opcFactory, opcUrl);
 
