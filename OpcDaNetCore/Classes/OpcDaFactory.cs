@@ -8,11 +8,20 @@ public class OpcDaFactory
 {
     private string _serverName;
     private string _ip;
+    private readonly List<SubscriptionModel> _subscriptions;
+    private Action<IEnumerable<ItemModel>>? onDataChanged;
 
     public OpcDaFactory()
     {
         _serverName = string.Empty;
         _ip = string.Empty;
+        _subscriptions = new();
+    }
+
+    private void Subscription_DataChanged(object subscriptionHandle, object requestHandle, ItemValueResult[] values)
+    {
+        var parse = values.Select(i => new ItemModel(i.ItemName, i.Value));
+        onDataChanged?.Invoke(parse);
     }
 
     private Task<IEnumerable<OpcDaServer>> BrowseServersAsync(CancellationToken cancellationToken = default)
@@ -24,6 +33,32 @@ public class OpcDaFactory
     {
         ArgumentException.ThrowIfNullOrEmpty(_ip, "You must specify the server ip address");
         ArgumentException.ThrowIfNullOrEmpty(_serverName, "You must specify the server name");
+    }
+
+    private void CreateSubscriptions(Server server)
+    {
+        foreach (SubscriptionModel item in _subscriptions)
+        {
+            var state = new SubscriptionState()
+            {
+                Name = item.Name,
+                UpdateRate = item.UpdateRate,
+                Active = item.IsActive,
+                ClientHandle = new List<string> { item.Name }
+            };
+
+            var subscription = (Subscription)server.CreateSubscription(state);
+
+            var items = item.Items.Select(i => new Item()
+            {
+                ItemName = i,
+                ClientHandle = subscription.ClientHandle,
+                ServerHandle = subscription.ServerHandle,
+            }).ToArray();
+
+            subscription.AddItems(items);
+            subscription.DataChanged += Subscription_DataChanged;
+        }
     }
 
     public OpcDaFactory WithServerName(string serverName)
@@ -44,6 +79,27 @@ public class OpcDaFactory
         return this;
     }
 
+    public OpcDaFactory WithSubscription(SubscriptionModel model)
+    {
+        ArgumentNullException.ThrowIfNull(model, "Invalid subscription");
+
+        if (_subscriptions.Any(i => i.Name == model.Name))
+        {
+            throw new ArgumentException("Subscription with same name already exists");
+        }
+
+        _subscriptions.Add(model);
+
+        return this;
+    }
+
+    public OpcDaFactory WithDataChangedCallback(Action<IEnumerable<ItemModel>> action)
+    {
+        onDataChanged = action;
+
+        return this;
+    }
+
     public Server Build()
     {
         ValidateServerParameters();
@@ -53,7 +109,11 @@ public class OpcDaFactory
 
         ArgumentNullException.ThrowIfNull(server, "Please verify that you have specified the correct server name");
 
-        return BrowseOpcDaServers.CreateServer(server.Url);
+        var create = BrowseOpcDaServers.CreateServerAndConnect(server.Url);
+
+        CreateSubscriptions(create);
+
+        return create;
     }
 
     public async Task<Server> BuildAsync(CancellationToken cancellationToken = default)
@@ -66,6 +126,10 @@ public class OpcDaFactory
 
         ArgumentNullException.ThrowIfNull(server, "Please verify that you have specified the correct server name");
 
-        return BrowseOpcDaServers.CreateServer(server.Url);
+        var create = BrowseOpcDaServers.CreateServerAndConnect(server.Url);
+
+        CreateSubscriptions(create);
+
+        return create;
     }
 }

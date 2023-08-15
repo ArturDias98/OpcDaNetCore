@@ -22,4 +22,16 @@ public static class BrowseOpcDaServers
 
         return new Opc.Da.Server(opcFactory, opcUrl);
     }
+
+    public static Opc.Da.Server CreateServerAndConnect(string url)
+    {
+        var opcFactory = new OpcCom.Factory();
+        var opcUrl = new Opc.URL(url);
+
+        var server = new Opc.Da.Server(opcFactory, opcUrl);
+
+        server.Connect();
+
+        return server;
+    }
 }
