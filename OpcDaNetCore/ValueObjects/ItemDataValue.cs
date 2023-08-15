@@ -1,8 +1,8 @@
 ﻿namespace OpcDaNetCore.ValueObjects;
 
-public class ItemValue
+public class ItemDataValue
 {
-    public ItemValue(string itemName, object value)
+    public ItemDataValue(string itemName, object value)
     {
         ArgumentException.ThrowIfNullOrEmpty(itemName, "Invalid item name");
 

@@ -1,6 +1,6 @@
 ﻿using Opc.Da;
-using OpcDaNetCore.Models;
 using OpcDaNetCore.Utilities;
+using OpcDaNetCore.ValueObjects;
 
 namespace OpcDaNetCore.Classes;
 
@@ -8,8 +8,8 @@ public class OpcDaFactory
 {
     private string _serverName;
     private string _ip;
-    private readonly List<SubscriptionModel> _subscriptions;
-    private Action<IEnumerable<ItemModel>>? onDataChanged;
+    private readonly List<Group> _subscriptions;
+    private Action<IEnumerable<ItemDataValue>>? onDataChanged;
 
     public OpcDaFactory()
     {
@@ -20,11 +20,11 @@ public class OpcDaFactory
 
     private void Subscription_DataChanged(object subscriptionHandle, object requestHandle, ItemValueResult[] values)
     {
-        var parse = values.Select(i => new ItemModel(i.ItemName, i.Value));
+        var parse = values.Select(i => new ItemDataValue(i.ItemName, i.Value));
         onDataChanged?.Invoke(parse);
     }
 
-    private Task<IEnumerable<OpcDaServer>> BrowseServersAsync(CancellationToken cancellationToken = default)
+    private Task<IEnumerable<ServerHost>> BrowseServersAsync(CancellationToken cancellationToken = default)
     {
         return Task.Factory.StartNew(() => BrowseOpcDaServers.BrowseServers(_ip), cancellationToken);
     }
@@ -37,13 +37,13 @@ public class OpcDaFactory
 
     private void CreateSubscriptions(Server server)
     {
-        foreach (SubscriptionModel item in _subscriptions)
+        foreach (Group item in _subscriptions)
         {
             var state = new SubscriptionState()
             {
                 Name = item.Name,
                 UpdateRate = item.UpdateRate,
-                Active = item.IsActive,
+                Active = true,
                 ClientHandle = new List<string> { item.Name }
             };
 
@@ -79,7 +79,7 @@ public class OpcDaFactory
         return this;
     }
 
-    public OpcDaFactory WithSubscription(params SubscriptionModel[] subscriptions)
+    public OpcDaFactory WithGroup(params Group[] subscriptions)
     {
         foreach (var subscription in subscriptions)
         {
@@ -94,7 +94,7 @@ public class OpcDaFactory
         return this;
     }
 
-    public OpcDaFactory WithDataChangedCallback(Action<IEnumerable<ItemModel>> action)
+    public OpcDaFactory WithDataChangedCallback(Action<IEnumerable<ItemDataValue>> action)
     {
         onDataChanged = action;
 
