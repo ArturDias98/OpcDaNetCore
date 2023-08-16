@@ -2,13 +2,6 @@
 
 public class Group
 {
-    public Group()
-    {
-        Name = string.Empty;
-
-        ValidateFields();
-    }
-
     public Group(string name, int updateRate, IEnumerable<string> items)
     {
         Name = name;

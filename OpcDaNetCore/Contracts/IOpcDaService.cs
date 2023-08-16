@@ -4,6 +4,8 @@ namespace OpcDaNetCore.Contracts;
 
 public interface IOpcDaService : IDisposable
 {
+    event EventHandler<IEnumerable<ItemDataValue>>? DataChanged;
+
     bool IsConnected { get; }
     string ServerName { get; }
     string Host { get; }
