@@ -1,12 +1,13 @@
 ﻿using OpcDaNetCore.Factory;
 using OpcDaNetCore.ValueObjects;
 
+Group group1 = new("Group 1", 1000, new List<string> { "Channel1.Device1.Tag1", "Channel1.Device1.Tag2" });
+Group group2 = new("Group 1", 1000, new List<string> { "Simulation Examples.Functions.Ramp1", "Simulation Examples.Functions.Sine1" });
+
 using var server = await new OpcDaFactory()
     .WithIp("localhost")
     .WithServerName("Kepware.KEPServerEX.V5")
-    .WithGroup(
-        new Group("Group 1", 1000, new List<string> { "Channel1.Device1.Tag1", "Channel1.Device1.Tag2" }),
-        new Group("Group 2", 1000, new List<string> { "Simulation Examples.Functions.Ramp1", "Simulation Examples.Functions.Sine1" }))
+    .WithGroup(group1, group2)
     .WithDataChangedCallback(PrintValues)
     .BuildAsync();
 

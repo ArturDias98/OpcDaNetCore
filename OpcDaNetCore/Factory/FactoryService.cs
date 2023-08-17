@@ -141,6 +141,15 @@ internal class FactoryService : IOpcDaService
         HandleSubscription(group);
     }
 
+    public void RemoveGroup(string groupName)
+    {
+        var subscription = FindSubscription(groupName);
+        if (subscription is not null)
+        {
+            _server.CancelSubscription(subscription);
+        }
+    }
+
     public IEnumerable<BrowseItem> BrowseNode(string? node)
     {
         return Browse(node);
