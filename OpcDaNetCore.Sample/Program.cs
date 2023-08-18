@@ -1,5 +1,13 @@
 ﻿using OpcDaNetCore.Factory;
+using OpcDaNetCore.Utilities;
 using OpcDaNetCore.ValueObjects;
+
+var servers = await BrowseOpcDaServers.BrowseServersAsync("localhost");
+
+foreach (var item in servers)
+{
+    Console.WriteLine(item.ServerName);
+}
 
 Group group1 = new("Group 1", 1000, new List<string> { "Channel1.Device1.Tag1", "Channel1.Device1.Tag2" });
 Group group2 = new("Group 2", 1000, new List<string> { "Simulation Examples.Functions.Ramp1", "Simulation Examples.Functions.Sine1" });

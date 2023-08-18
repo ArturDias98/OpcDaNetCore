@@ -28,11 +28,6 @@ public class OpcDaFactory
         return new OpcDaService(create, _subscriptions, onDataChanged);
     }
 
-    private Task<IEnumerable<ServerHost>> BrowseServersAsync(CancellationToken cancellationToken = default)
-    {
-        return Task.Factory.StartNew(() => BrowseOpcDaServers.BrowseServers(_ip), cancellationToken);
-    }
-
     private void ValidateServerParameters()
     {
         ArgumentException.ThrowIfNullOrEmpty(_ip, "You must specify the server ip address");
@@ -61,6 +56,8 @@ public class OpcDaFactory
     {
         _ip = server.Host;
         _serverName = server.ServerName;
+
+        ValidateServerParameters();
 
         return this;
     }
@@ -101,8 +98,7 @@ public class OpcDaFactory
     {
         ValidateServerParameters();
 
-        var servers = await BrowseServersAsync(cancellationToken);
-
+        var servers = await BrowseOpcDaServers.BrowseServersAsync(_ip, cancellationToken);
         var server = servers.FirstOrDefault(i => i.ServerName == _serverName);
 
         return BuildAndConnect(server);
