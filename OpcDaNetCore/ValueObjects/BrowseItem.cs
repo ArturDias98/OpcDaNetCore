@@ -9,7 +9,7 @@ public class BrowseItem
         HasChildren = hasChildren;
     }
 
-    public string Name { get; set; }
-    public string Id { get; set; }
-    public bool HasChildren { get; set; }
+    public string Name { get; }
+    public string Id { get; }
+    public bool HasChildren { get; }
 }

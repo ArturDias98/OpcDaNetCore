@@ -10,6 +10,6 @@ public class ItemDataValue
         Value = value;
     }
 
-    public string ItemName { get; set; }
-    public object Value { get; set; }
+    public string ItemName { get; }
+    public object Value { get; }
 }

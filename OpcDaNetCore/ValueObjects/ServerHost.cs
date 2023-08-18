@@ -9,7 +9,7 @@ public class ServerHost
         Url = url;
     }
 
-    public string ServerName { get; set; }
-    public string Host { get; set; }
-    public string Url { get; set; }
+    public string ServerName { get; }
+    public string Host { get; }
+    public string Url { get; }
 }
