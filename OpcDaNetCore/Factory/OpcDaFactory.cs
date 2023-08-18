@@ -24,7 +24,7 @@ public class OpcDaFactory
 
         var create = BrowseOpcDaServers.CreateServerAndConnect(host.Url);
 
-        return new FactoryService(create, _subscriptions, onDataChanged);
+        return new OpcDaService(create, _subscriptions, onDataChanged);
     }
 
     private Task<IEnumerable<ServerHost>> BrowseServersAsync(CancellationToken cancellationToken = default)
