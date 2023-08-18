@@ -15,6 +15,11 @@ public static class BrowseOpcDaServers
         return enumetare.Select(i => new ServerHost(i.Name, i.Url.HostName, i.Url.ToString()));
     }
 
+    public static Task<IEnumerable<ServerHost>> BrowseServersAsync(string ip, CancellationToken cancellationToken = default)
+    {
+        return Task.Factory.StartNew(() => BrowseServers(ip), cancellationToken);
+    }
+
     public static Opc.Da.Server CreateServer(string url)
     {
         var opcFactory = new OpcCom.Factory();

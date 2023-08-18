@@ -56,6 +56,14 @@ public class OpcDaFactory
         return this;
     }
 
+    public OpcDaFactory WithServer(ServerHost server)
+    {
+        _ip = server.Host;
+        _serverName = server.ServerName;
+
+        return this;
+    }
+
     public OpcDaFactory WithGroup(params Group[] subscriptions)
     {
         foreach (var subscription in subscriptions)
