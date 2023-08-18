@@ -31,6 +31,19 @@ public class Group
         Name = name;
     }
 
+    public Group(string name, IEnumerable<string> items)
+    {
+        ArgumentException.ThrowIfNullOrEmpty(name, "The group name is required");
+
+        if (items?.Any() != true)
+        {
+            throw new ArgumentException("Group without items");
+        }
+
+        Name = name;
+        Items = items;
+    }
+
     private void ValidateFields()
     {
         ArgumentException.ThrowIfNullOrEmpty(Name, "The group name is required");

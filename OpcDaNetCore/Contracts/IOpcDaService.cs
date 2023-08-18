@@ -14,7 +14,11 @@ public interface IOpcDaService : IDisposable
     Task<bool> ConnectAsync(CancellationToken cancellationToken = default);
     bool Disconnect();
     void AddItems(string groupName, IEnumerable<string> items);
+    void AddItems(string groupName, params string[] items);
     void AddItems(Group group);
+    void RemoveItems(string groupName, IEnumerable<string> items);
+    void RemoveItems(string groupName, params string[] items);
+    void RemoveItems(Group group);
     void RemoveGroup(string groupName);
     void ConfigureGroup(ConfigureGroup configure);
     IEnumerable<BrowseItem> BrowseNode(string? node);

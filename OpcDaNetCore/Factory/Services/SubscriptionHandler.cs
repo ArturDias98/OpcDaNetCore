@@ -1,4 +1,5 @@
-﻿using Opc.Da;
+﻿using Opc;
+using Opc.Da;
 using OpcDaNetCore.ValueObjects;
 
 namespace OpcDaNetCore.Factory.Services;
@@ -52,10 +53,26 @@ internal partial class OpcDaService
         subscription.DataChanged += Subscription_DataChanged;
     }
 
-    public void AddItems(string groupName, IEnumerable<string> items)
+    private void AddItemsAndConfigure(string groupName, IEnumerable<string> items)
     {
         var group = new Group(groupName, 1000, items);
         AddItems(group);
+    }
+
+    private void RemoveItemsAndConfigure(string groupName, IEnumerable<string> items)
+    {
+        var group = new Group(groupName, items);
+        RemoveItems(group);
+    }
+
+    public void AddItems(string groupName, IEnumerable<string> items)
+    {
+        AddItemsAndConfigure(groupName, items);
+    }
+
+    public void AddItems(string groupName, params string[] items)
+    {
+        AddItemsAndConfigure(groupName, items);
     }
 
     public void AddItems(Group group)
@@ -77,6 +94,36 @@ internal partial class OpcDaService
 
             subscription.AddItems(items);
             subscription.Refresh();
+        }
+    }
+
+    public void RemoveItems(string groupName, IEnumerable<string> items)
+    {
+        RemoveItemsAndConfigure(groupName, items);
+    }
+
+    public void RemoveItems(string groupName, params string[] items)
+    {
+        RemoveItemsAndConfigure(groupName, items);
+    }
+
+    public void RemoveItems(Group group)
+    {
+        var subscription = FindSubscription(group.Name);
+
+        if (subscription is not null)
+        {
+            var items = subscription.Items
+                .Where(i => group.Items.Contains(i.ItemName))
+                .Select(i => new ItemIdentifier
+                {
+                    ItemName = i.ItemName,
+                    ItemPath = i.ItemPath,
+                    ClientHandle = i.ClientHandle,
+                    ServerHandle = i.ServerHandle,
+                }).ToArray();
+
+            subscription.RemoveItems(items);
         }
     }
 
