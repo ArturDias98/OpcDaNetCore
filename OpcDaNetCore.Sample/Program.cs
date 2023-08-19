@@ -39,6 +39,27 @@ foreach (var browseElement in browse)
 
 Console.WriteLine("------");
 
+server.AddItems("Group 1", "Simulation Examples.Functions.Ramp2", "Simulation Examples.Functions.Ramp3");
+await Task.Delay(5000);
+server.RemoveItems("Group 1", "Simulation Examples.Functions.Ramp2", "Simulation Examples.Functions.Ramp3");
+
+var read = server.Read("Group 1");
+
+foreach (var readElement in read)
+{
+    Console.WriteLine($"{readElement.ItemName} - {readElement.Value}");
+}
+
+var readAny = server.Read("Group 1", "Simulation Examples.Functions.Ramp1", "Simulation Examples.Functions.Sine1");
+
+foreach (var readElement in readAny)
+{
+    Console.WriteLine($"{readElement.ItemName} - {readElement.Value}");
+}
+var valueToWrite1 = new ItemDataValue("Channel1.Device1.Tag2", 125);
+var valueToWrite2 = new ItemDataValue("Channel1.Device1.Tag3", 126);
+server.Write("Group 1",valueToWrite1, valueToWrite2);
+
 Console.ReadKey();
 
 static void PrintValues(IEnumerable<ItemDataValue> items)

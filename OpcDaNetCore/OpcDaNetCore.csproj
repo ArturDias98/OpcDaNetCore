@@ -6,16 +6,16 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<PackageId>OpcDaNetCore</PackageId>
-		<Version>1.0.0</Version>
+		<Version>1.0.1</Version>
 		<License>MIT</License>
 		<Authors>Artur Dias</Authors>
-		<PackageDescription>An OPC DA implementation dor dotNet applications</PackageDescription>
+		<PackageDescription>An OPC DA implementation for .Net applications</PackageDescription>
 		<Description>OPC DA for dotNet</Description>
 		<RepositoryUrl>https://github.com/ArturDias98/OpcDaNetCore</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/ArturDias98/OpcDaNetCore</PackageProjectUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageTags>opc;opcda;dotnet</PackageTags>
-		<Title>DotNetOpcDa</Title>
+		<Title>Opc Da for .Net</Title>
 	</PropertyGroup>
 
 	<ItemGroup>
