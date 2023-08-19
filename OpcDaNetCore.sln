@@ -7,13 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpcDaNetCore", "OpcDaNetCor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpcDaNetCore.Sample", "OpcDaNetCore.Sample\OpcDaNetCore.Sample.csproj", "{EABADA47-0E4F-447A-A8D5-D5CF8A96355B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{6D7EE021-2FC6-4848-BAED-AFF096121D79}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{1E15FFBB-4C0B-4EEF-BCE2-D1D367179A16}"
-	ProjectSection(SolutionItems) = preProject
-		main.yml = main.yml
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,9 +24,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{1E15FFBB-4C0B-4EEF-BCE2-D1D367179A16} = {6D7EE021-2FC6-4848-BAED-AFF096121D79}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4FF4F235-A069-4147-8FB4-57F6415FCE36}
