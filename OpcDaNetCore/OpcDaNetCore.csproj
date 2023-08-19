@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
@@ -6,7 +6,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<PackageId>OpcDaNetCore</PackageId>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
 		<License>MIT</License>
 		<Authors>Artur Dias</Authors>
 		<PackageDescription>An OPC DA implementation for .Net applications</PackageDescription>
