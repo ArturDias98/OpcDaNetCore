@@ -56,6 +56,7 @@ foreach (var readElement in readAny)
 {
     Console.WriteLine($"{readElement.ItemName} - {readElement.Value}");
 }
+
 var valueToWrite1 = new ItemDataValue("Channel1.Device1.Tag2", 125);
 var valueToWrite2 = new ItemDataValue("Channel1.Device1.Tag3", 126);
 server.Write("Group 1",valueToWrite1, valueToWrite2);
