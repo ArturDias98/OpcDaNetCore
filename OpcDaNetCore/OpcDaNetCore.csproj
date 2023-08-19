@@ -1,14 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<PackageId>OpcDaNetCore</PackageId>
+		<Version>1.0.0</Version>
+		<License>MIT</License>
+		<Authors>Artur Dias</Authors>
+		<PackageDescription>An OPC DA implementation dor dotNet applications</PackageDescription>
+		<Description>OPC DA for dotNet</Description>
+		<RepositoryUrl>https://github.com/ArturDias98/OpcDaNetCore</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/ArturDias98/OpcDaNetCore</PackageProjectUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageTags>opc;opcda;dotnet</PackageTags>
+		<Title>DotNetOpcDa</Title>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Quick.OpcNetApi" Version="2.1.108" />
-    <PackageReference Include="Quick.OpcNetApi.Com" Version="2.1.108" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Quick.OpcNetApi" Version="2.1.108" />
+		<PackageReference Include="Quick.OpcNetApi.Com" Version="2.1.108" />
+		<None Include="docs\README.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
 
 </Project>
