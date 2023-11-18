@@ -129,20 +129,6 @@ namespace OpcDaNetCore.Factory.Services
             }
         }
 
-        public void ConfigureGroup(ConfigureGroup configure)
-        {
-            var subscription = FindSubscription(configure.Name);
-
-            if (subscription != null)
-            {
-                var state = (SubscriptionState)subscription.State.Clone();
-                state.UpdateRate = configure.UpdateRate;
-                state.Active = configure.IsActive;
-
-                subscription.ModifyState(-1, state);
-            }
-        }
-
         public void RemoveGroup(string groupName)
         {
             var subscription = FindSubscription(groupName);

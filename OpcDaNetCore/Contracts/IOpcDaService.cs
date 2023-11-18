@@ -24,7 +24,6 @@ namespace OpcDaNetCore.Contracts
         void RemoveItems(string groupName, params string[] items);
         void RemoveItems(Group group);
         void RemoveGroup(string groupName);
-        void ConfigureGroup(ConfigureGroup configure);
         IEnumerable<BrowseItem> BrowseNode(string node);
         Task<IEnumerable<BrowseItem>> BrowseNodeAsync(string node, CancellationToken cancellationToken = default);
         IEnumerable<ItemDataValue> Read(string groupName);

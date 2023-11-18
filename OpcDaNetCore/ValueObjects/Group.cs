@@ -4,56 +4,63 @@ using System.Linq;
 
 namespace OpcDaNetCore.ValueObjects
 {
-
     public class Group
     {
         public Group(string name, int updateRate, IEnumerable<string> items)
         {
-            if (items?.Any() != true)
-            {
-                throw new ArgumentException("Group without items");
-            }
+            ValidateName(name);
+            ValidateItems(items);
+            ValidateUpdateRate(updateRate);
 
             Name = name;
             UpdateRate = updateRate;
             Items = items;
-
-            ValidateFields();
         }
 
         public Group(string name, int updateRate)
         {
+            ValidateName(name);
+            ValidateUpdateRate(updateRate);
+
             Name = name;
             UpdateRate = updateRate;
-
-            ValidateFields();
         }
 
         public Group(string name)
         {
-            //ArgumentException.ThrowIfNullOrEmpty(name, "The group name is required");
+            ValidateName(name);
 
             Name = name;
         }
 
         public Group(string name, IEnumerable<string> items)
         {
-            //ArgumentException.ThrowIfNullOrEmpty(name, "The group name is required");
-
-            if (items?.Any() != true)
-            {
-                throw new ArgumentException("Group without items");
-            }
+            ValidateName(name);
+            ValidateItems(items);
 
             Name = name;
             Items = items;
         }
 
-        private void ValidateFields()
+        private void ValidateName(string name)
         {
-            //ArgumentException.ThrowIfNullOrEmpty(Name, "The group name is required");
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("The group name is required");
+            }
+        }
 
-            if (UpdateRate <= 0)
+        private void ValidateItems(IEnumerable<string> items)
+        {
+            if (items?.Any() != true)
+            {
+                throw new ArgumentException("Group without items");
+            }
+        }
+
+        private void ValidateUpdateRate(int updateRate)
+        {
+            if (updateRate <= 0)
             {
                 throw new ArgumentException("Invalid update rate");
             }
