@@ -1,69 +1,72 @@
-﻿namespace OpcDaNetCore.ValueObjects;
+﻿using System;
 
-public class ConfigureGroup
+namespace OpcDaNetCore.ValueObjects
 {
-    public ConfigureGroup()
+    public class ConfigureGroup
     {
-    }
-
-    public ConfigureGroup(string name, bool isActive, int updateRate)
-    {
-        ArgumentException.ThrowIfNullOrEmpty(name, "Invalid group name");
-
-        IsActive = isActive;
-        Name = name;
-
-        UpdateRate = updateRate;
-
-        ValidateRate();
-    }
-
-    private void ValidateRate()
-    {
-        if (UpdateRate <= 0)
+        public ConfigureGroup()
         {
-            throw new ArgumentException("Invalid update rate");
         }
-    }
 
-    public string Name { get; private set; } = string.Empty;
-    public bool IsActive { get; private set; }
-    public int UpdateRate { get; private set; }
+        public ConfigureGroup(string name, bool isActive, int updateRate)
+        {
+            //ArgumentException.ThrowIfNullOrEmpty(name, "Invalid group name");
 
-    public ConfigureGroup WithGroupName(string groupName)
-    {
-        ArgumentException.ThrowIfNullOrEmpty(groupName, "Invalid group name");
+            IsActive = isActive;
+            Name = name;
 
-        Name = groupName;
+            UpdateRate = updateRate;
 
-        return this;
-    }
+            ValidateRate();
+        }
 
-    public ConfigureGroup WithUpdateRate(int updateRate)
-    {
-        UpdateRate = updateRate;
+        private void ValidateRate()
+        {
+            if (UpdateRate <= 0)
+            {
+                throw new ArgumentException("Invalid update rate");
+            }
+        }
 
-        ValidateRate();
+        public string Name { get; private set; } = string.Empty;
+        public bool IsActive { get; private set; }
+        public int UpdateRate { get; private set; }
 
-        return this;
-    }
+        public ConfigureGroup WithGroupName(string groupName)
+        {
+            //ArgumentException.ThrowIfNullOrEmpty(groupName, "Invalid group name");
 
-    public ConfigureGroup WithActivation(bool isActive)
-    {
-        IsActive = isActive;
+            Name = groupName;
 
-        return this;
-    }
+            return this;
+        }
 
-    public void ChangeActive(bool isActive)
-    {
-        IsActive = isActive;
-    }
+        public ConfigureGroup WithUpdateRate(int updateRate)
+        {
+            UpdateRate = updateRate;
 
-    public void ChangeUpdateRate(int updateRate)
-    {
-        ValidateRate();
+            ValidateRate();
 
-        UpdateRate = updateRate;
+            return this;
+        }
+
+        public ConfigureGroup WithActivation(bool isActive)
+        {
+            IsActive = isActive;
+
+            return this;
+        }
+
+        public void ChangeActive(bool isActive)
+        {
+            IsActive = isActive;
+        }
+
+        public void ChangeUpdateRate(int updateRate)
+        {
+            ValidateRate();
+
+            UpdateRate = updateRate;
+        }
     }
 }

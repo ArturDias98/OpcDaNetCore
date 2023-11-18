@@ -1,15 +1,16 @@
-﻿namespace OpcDaNetCore.ValueObjects;
-
-public class BrowseItem
+﻿namespace OpcDaNetCore.ValueObjects
 {
-    public BrowseItem(string name, string id, bool hasChildren)
+    public class BrowseItem
     {
-        Name = name;
-        Id = id;
-        HasChildren = hasChildren;
-    }
+        public BrowseItem(string name, string id, bool hasChildren)
+        {
+            Name = name;
+            Id = id;
+            HasChildren = hasChildren;
+        }
 
-    public string Name { get; }
-    public string Id { get; }
-    public bool HasChildren { get; }
+        public string Name { get; }
+        public string Id { get; }
+        public bool HasChildren { get; }
+    }
 }

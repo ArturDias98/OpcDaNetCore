@@ -1,15 +1,16 @@
-﻿namespace OpcDaNetCore.ValueObjects;
-
-public class ItemDataValue
+﻿namespace OpcDaNetCore.ValueObjects
 {
-    public ItemDataValue(string itemName, object value)
+    public class ItemDataValue
     {
-        ArgumentException.ThrowIfNullOrEmpty(itemName, "Invalid item name");
+        public ItemDataValue(string itemName, object value)
+        {
+            //ArgumentException.ThrowIfNullOrEmpty(itemName, "Invalid item name");
 
-        ItemName = itemName;
-        Value = value;
+            ItemName = itemName;
+            Value = value;
+        }
+
+        public string ItemName { get; }
+        public object Value { get; }
     }
-
-    public string ItemName { get; }
-    public object Value { get; }
 }

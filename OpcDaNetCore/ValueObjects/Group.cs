@@ -1,66 +1,72 @@
-﻿namespace OpcDaNetCore.ValueObjects;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
-public class Group
+namespace OpcDaNetCore.ValueObjects
 {
-    public Group(string name, int updateRate, IEnumerable<string> items)
+
+    public class Group
     {
-        if (items?.Any() != true)
+        public Group(string name, int updateRate, IEnumerable<string> items)
         {
-            throw new ArgumentException("Group without items");
+            if (items?.Any() != true)
+            {
+                throw new ArgumentException("Group without items");
+            }
+
+            Name = name;
+            UpdateRate = updateRate;
+            Items = items;
+
+            ValidateFields();
         }
 
-        Name = name;
-        UpdateRate = updateRate;
-        Items = items;
-
-        ValidateFields();
-    }
-
-    public Group(string name, int updateRate)
-    {
-        Name = name;
-        UpdateRate = updateRate;
-
-        ValidateFields();
-    }
-
-    public Group(string name)
-    {
-        ArgumentException.ThrowIfNullOrEmpty(name, "The group name is required");
-
-        Name = name;
-    }
-
-    public Group(string name, IEnumerable<string> items)
-    {
-        ArgumentException.ThrowIfNullOrEmpty(name, "The group name is required");
-
-        if (items?.Any() != true)
+        public Group(string name, int updateRate)
         {
-            throw new ArgumentException("Group without items");
+            Name = name;
+            UpdateRate = updateRate;
+
+            ValidateFields();
         }
 
-        Name = name;
-        Items = items;
-    }
-
-    private void ValidateFields()
-    {
-        ArgumentException.ThrowIfNullOrEmpty(Name, "The group name is required");
-
-        if (UpdateRate <= 0)
+        public Group(string name)
         {
-            throw new ArgumentException("Invalid update rate");
+            //ArgumentException.ThrowIfNullOrEmpty(name, "The group name is required");
+
+            Name = name;
         }
-    }
 
-    public string Name { get; private set; }
-    public int UpdateRate { get; private set; } = 1000;
-    public IEnumerable<string> Items { get; } = Enumerable.Empty<string>();
+        public Group(string name, IEnumerable<string> items)
+        {
+            //ArgumentException.ThrowIfNullOrEmpty(name, "The group name is required");
 
-    internal void Default()
-    {
-        Name = "Group 1";
-        UpdateRate = 1000;
+            if (items?.Any() != true)
+            {
+                throw new ArgumentException("Group without items");
+            }
+
+            Name = name;
+            Items = items;
+        }
+
+        private void ValidateFields()
+        {
+            //ArgumentException.ThrowIfNullOrEmpty(Name, "The group name is required");
+
+            if (UpdateRate <= 0)
+            {
+                throw new ArgumentException("Invalid update rate");
+            }
+        }
+
+        public string Name { get; private set; }
+        public int UpdateRate { get; private set; } = 1000;
+        public IEnumerable<string> Items { get; } = Enumerable.Empty<string>();
+
+        internal void Default()
+        {
+            Name = "Group 1";
+            UpdateRate = 1000;
+        }
     }
 }

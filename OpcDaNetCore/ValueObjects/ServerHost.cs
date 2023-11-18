@@ -1,15 +1,16 @@
-﻿namespace OpcDaNetCore.ValueObjects;
-
-public class ServerHost
+﻿namespace OpcDaNetCore.ValueObjects
 {
-    public ServerHost(string serverName, string host, string url)
+    public class ServerHost
     {
-        ServerName = serverName;
-        Host = host;
-        Url = url;
-    }
+        public ServerHost(string serverName, string host, string url)
+        {
+            ServerName = serverName;
+            Host = host;
+            Url = url;
+        }
 
-    public string ServerName { get; }
-    public string Host { get; }
-    public string Url { get; }
+        public string ServerName { get; }
+        public string Host { get; }
+        public string Url { get; }
+    }
 }
