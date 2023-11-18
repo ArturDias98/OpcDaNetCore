@@ -1,10 +1,15 @@
-﻿namespace OpcDaNetCore.ValueObjects
+﻿using System;
+
+namespace OpcDaNetCore.ValueObjects
 {
     public class ItemDataValue
     {
         public ItemDataValue(string itemName, object value)
         {
-            //ArgumentException.ThrowIfNullOrEmpty(itemName, "Invalid item name");
+            if (string.IsNullOrWhiteSpace(itemName))
+            {
+                throw new ArgumentException("Invalid item name");
+            }
 
             ItemName = itemName;
             Value = value;

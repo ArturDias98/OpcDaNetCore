@@ -1,5 +1,6 @@
 ﻿using Opc;
 using OpcDaNetCore.ValueObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -11,7 +12,10 @@ namespace OpcDaNetCore.Utilities
     {
         public static IEnumerable<ServerHost> BrowseServers(string ip)
         {
-            //ArgumentNullException.ThrowIfNull(ip, "Invalid server ip");
+            if (string.IsNullOrWhiteSpace(ip))
+            {
+                throw new ArgumentException("Invalid server ip");
+            }
 
             using (IDiscovery discovery = new OpcCom.ServerEnumerator())
             {

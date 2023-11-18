@@ -24,9 +24,28 @@ namespace OpcDaNetCore.Factory
             _subscriptions = new List<Group>();
         }
 
+        private void ValidateIpAddress(string address)
+        {
+            if (string.IsNullOrWhiteSpace(address))
+            {
+                throw new ArgumentNullException("You must specify the server ip address");
+            }
+        }
+
+        private void ValidateServerName(string server)
+        {
+            if (string.IsNullOrWhiteSpace(server))
+            {
+                throw new ArgumentNullException("You must specify the server name");
+            }
+        }
+
         private IOpcDaService BuildAndConnect(ServerHost host)
         {
-            //ArgumentNullException.ThrowIfNull(host, "Server not found. Please verify that you have specified the correct server name");
+            if (host is null)
+            {
+                throw new ArgumentNullException("Server not found. Please verify that you have specified the correct server name");
+            }
 
             var create = BrowseOpcDaServers.CreateServerAndConnect(host.Url);
 
@@ -35,13 +54,14 @@ namespace OpcDaNetCore.Factory
 
         private void ValidateServerParameters()
         {
-            //ArgumentException.ThrowIfNullOrEmpty(_ip, "You must specify the server ip address");
-            //ArgumentException.ThrowIfNullOrEmpty(_serverName, "You must specify the server name");
+            ValidateIpAddress(_ip);
+            ValidateServerName(_serverName);
         }
 
         public OpcDaFactory WithServerName(string serverName)
         {
-            //ArgumentException.ThrowIfNullOrEmpty(serverName, "Invalid server name");
+            ValidateServerName(_serverName);
+
             _serverName = serverName;
 
             return this;
@@ -49,7 +69,7 @@ namespace OpcDaNetCore.Factory
 
         public OpcDaFactory WithIp(string ip)
         {
-            //ArgumentException.ThrowIfNullOrEmpty(ip, "Invalid ip address");
+            ValidateIpAddress(ip);
 
             _ip = ip;
 
@@ -83,6 +103,11 @@ namespace OpcDaNetCore.Factory
 
         public OpcDaFactory WithDataChangedCallback(Action<IEnumerable<ItemDataValue>> action)
         {
+            if (action is null)
+            {
+                throw new ArgumentNullException("Data changed callback must not be null");
+            }
+
             onDataChanged = action;
 
             return this;
