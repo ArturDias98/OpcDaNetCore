@@ -4,10 +4,10 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
 		<PackageId>OpcDaNetCore</PackageId>
-		<Version>1.0.2</Version>
+		<Version>2.0.0</Version>
 		<License>MIT</License>
 		<Authors>Artur Dias</Authors>
-		<PackageDescription>An OPC DA implementation for .Net applications</PackageDescription>
+		<PackageDescription>OPC DA implementation for .Net applications</PackageDescription>
 		<Description>OPC DA for dotNet</Description>
 		<RepositoryUrl>https://github.com/ArturDias98/OpcDaNetCore</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/ArturDias98/OpcDaNetCore</PackageProjectUrl>
