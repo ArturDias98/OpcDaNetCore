@@ -23,4 +23,4 @@ jobs:
           run: dotnet pack --configuration Release
 
         - name: Publish
-          run: dotnet nuget push "OpcDaNetCore/bin/Release/*.nupkg" -k ${{ secrets.NUGET_TOKEN}} -s https://api.nuget.org/v3/index.json
+          run: dotnet nuget push "OpcDaNetCore\bin\Release\*.nupkg" -k ${{ secrets.NUGET_TOKEN}} -s https://api.nuget.org/v3/index.json
