@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpcDaNetCore", "OpcDaNetCor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpcDaNetCore.Sample", "OpcDaNetCore.Sample\OpcDaNetCore.Sample.csproj", "{EABADA47-0E4F-447A-A8D5-D5CF8A96355B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpcDaNetCore.NetFramework.Sample", "OpcDaNetCore.NetFramework.Sample\OpcDaNetCore.NetFramework.Sample.csproj", "{33932141-E591-475B-A722-D832A3EF3807}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{EABADA47-0E4F-447A-A8D5-D5CF8A96355B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EABADA47-0E4F-447A-A8D5-D5CF8A96355B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EABADA47-0E4F-447A-A8D5-D5CF8A96355B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{33932141-E591-475B-A722-D832A3EF3807}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{33932141-E591-475B-A722-D832A3EF3807}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{33932141-E591-475B-A722-D832A3EF3807}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{33932141-E591-475B-A722-D832A3EF3807}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
