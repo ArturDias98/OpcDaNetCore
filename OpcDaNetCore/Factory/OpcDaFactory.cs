@@ -1,4 +1,5 @@
 ﻿using OpcDaNetCore.Contracts;
+using OpcDaNetCore.Exceptions;
 using OpcDaNetCore.Factory.Services;
 using OpcDaNetCore.Utilities;
 using OpcDaNetCore.ValueObjects;
@@ -24,22 +25,6 @@ namespace OpcDaNetCore.Factory
             _subscriptions = new List<Group>();
         }
 
-        private void ValidateIpAddress(string address)
-        {
-            if (string.IsNullOrWhiteSpace(address))
-            {
-                throw new ArgumentNullException("You must specify the server ip address");
-            }
-        }
-
-        private void ValidateServerName(string server)
-        {
-            if (string.IsNullOrWhiteSpace(server))
-            {
-                throw new ArgumentNullException("You must specify the server name");
-            }
-        }
-
         private IOpcDaService BuildAndConnect(ServerHost host)
         {
             if (host is null)
@@ -54,13 +39,13 @@ namespace OpcDaNetCore.Factory
 
         private void ValidateServerParameters()
         {
-            ValidateIpAddress(_ip);
-            ValidateServerName(_serverName);
+            InvalidIpAddressException.ThrowIfInvalidAddress(_ip);
+            InvalidServerException.ThrowIfInvalidServer(_serverName);
         }
 
         public OpcDaFactory WithServerName(string serverName)
         {
-            ValidateServerName(serverName);
+            InvalidServerException.ThrowIfInvalidServer(serverName);
 
             _serverName = serverName;
 
@@ -69,7 +54,7 @@ namespace OpcDaNetCore.Factory
 
         public OpcDaFactory WithIp(string ip)
         {
-            ValidateIpAddress(ip);
+            InvalidIpAddressException.ThrowIfInvalidAddress(ip);
 
             _ip = ip;
 

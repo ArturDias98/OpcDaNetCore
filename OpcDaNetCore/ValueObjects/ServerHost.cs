@@ -1,9 +1,13 @@
-﻿namespace OpcDaNetCore.ValueObjects
+﻿using OpcDaNetCore.Exceptions;
+
+namespace OpcDaNetCore.ValueObjects
 {
     public class ServerHost
     {
         public ServerHost(string serverName, string host, string url)
         {
+            InvalidServerException.ThrowIfInvalidServer(serverName);
+
             ServerName = serverName;
             Host = host;
             Url = url;
