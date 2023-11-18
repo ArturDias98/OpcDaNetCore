@@ -60,7 +60,7 @@ namespace OpcDaNetCore.Factory
 
         public OpcDaFactory WithServerName(string serverName)
         {
-            ValidateServerName(_serverName);
+            ValidateServerName(serverName);
 
             _serverName = serverName;
 
