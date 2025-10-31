@@ -21,11 +21,9 @@ namespace OpcDaNetCore.Factory.Services
 
             foreach (Subscription subscription in LockServer().Subscriptions)
             {
-                if (subscription.Name == name)
-                {
-                    find = subscription;
-                    break;
-                }
+                if (subscription.Name != name) continue;
+                find = subscription;
+                break;
             }
 
             return find;
@@ -113,20 +111,19 @@ namespace OpcDaNetCore.Factory.Services
         {
             var subscription = FindSubscription(group.Name);
 
-            if (subscription != null)
-            {
-                var items = subscription.Items
-                    .Where(i => group.Items.Contains(i.ItemName))
-                    .Select(i => new ItemIdentifier
-                    {
-                        ItemName = i.ItemName,
-                        ItemPath = i.ItemPath,
-                        ClientHandle = i.ClientHandle,
-                        ServerHandle = i.ServerHandle,
-                    }).ToArray();
+            if (subscription == null) return;
+            
+            var items = subscription.Items
+                .Where(i => group.Items.Contains(i.ItemName))
+                .Select(i => new ItemIdentifier
+                {
+                    ItemName = i.ItemName,
+                    ItemPath = i.ItemPath,
+                    ClientHandle = i.ClientHandle,
+                    ServerHandle = i.ServerHandle,
+                }).ToArray();
 
-                subscription.RemoveItems(items);
-            }
+            subscription.RemoveItems(items);
         }
 
         public void RemoveGroup(string groupName)

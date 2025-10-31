@@ -13,28 +13,21 @@ namespace OpcDaNetCore.Factory
 {
     public class OpcDaFactory
     {
-        private string _serverName;
-        private string _ip;
-        private readonly List<Group> _subscriptions;
-        private Action<IEnumerable<ItemDataValue>> onDataChanged;
-
-        public OpcDaFactory()
-        {
-            _serverName = string.Empty;
-            _ip = string.Empty;
-            _subscriptions = new List<Group>();
-        }
+        private string _serverName = string.Empty;
+        private string _ip = string.Empty;
+        private readonly List<Group> _subscriptions = new List<Group>();
+        private Action<IEnumerable<ItemDataValue>> _onDataChanged;
 
         private IOpcDaService BuildAndConnect(ServerHost host)
         {
             if (host is null)
             {
-                throw new ArgumentNullException("Server not found. Please verify that you have specified the correct server name");
+                throw new ArgumentNullException(nameof(host));
             }
 
             var create = BrowseOpcDaServers.CreateServerAndConnect(host.Url);
 
-            return new OpcDaService(create, _subscriptions, onDataChanged);
+            return new OpcDaService(create, _subscriptions, _onDataChanged);
         }
 
         private void ValidateServerParameters()
@@ -88,12 +81,7 @@ namespace OpcDaNetCore.Factory
 
         public OpcDaFactory WithDataChangedCallback(Action<IEnumerable<ItemDataValue>> action)
         {
-            if (action is null)
-            {
-                throw new ArgumentNullException("Data changed callback must not be null");
-            }
-
-            onDataChanged = action;
+            _onDataChanged = action ?? throw new ArgumentNullException(nameof(action));
 
             return this;
         }

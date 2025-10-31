@@ -12,7 +12,7 @@ namespace OpcDaNetCore.Factory.Services
 
     internal partial class OpcDaService : IOpcDaService
     {
-        private static readonly object _syncLock = new object();
+        private static readonly object SyncLock = new object();
 
         private readonly Server _server;
 
@@ -30,7 +30,7 @@ namespace OpcDaNetCore.Factory.Services
 
         private Server LockServer()
         {
-            lock (_syncLock)
+            lock (SyncLock)
             {
                 return _server;
             }

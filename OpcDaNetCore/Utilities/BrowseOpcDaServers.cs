@@ -16,8 +16,8 @@ namespace OpcDaNetCore.Utilities
 
             using (IDiscovery discovery = new OpcCom.ServerEnumerator())
             {
-                var enumetare = discovery.GetAvailableServers(Specification.COM_DA_20, ip, null);
-                return enumetare.Select(i => new ServerHost(i.Name, i.Url.HostName, i.Url.ToString()));
+                var enumerate = discovery.GetAvailableServers(Specification.COM_DA_20, ip, null);
+                return enumerate.Select(i => new ServerHost(i.Name, i.Url.HostName, i.Url.ToString()));
             }
         }
 
